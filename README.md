@@ -25,6 +25,7 @@ Installation
 
 Dependencies
 ------------
+ftd2xx
 
 Compatibility
 ------------
