@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BD395EF16BA70800092DBD6 /* libp9813.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD395EC16BA70800092DBD6 /* libp9813.a */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		10dd93a8b7fca2c023a9baa1e10d6291 /* calibration.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = calibration.h; path = ../../../addons/ofxTotalControl/libs/p9813/include/calibration.h; sourceTree = SOURCE_ROOT; };
+		1BD395EC16BA70800092DBD6 /* libp9813.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libp9813.a; sourceTree = "<group>"; };
 		3e42c24b3f7e956c48582e4f3915f8ef /* ofxTotalControl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTotalControl.cpp; path = ../../../addons/ofxTotalControl/src/ofxTotalControl.cpp; sourceTree = SOURCE_ROOT; };
 		427c4538c26e3f69b57b618f688d9ed2 /* p9813.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = p9813.h; path = ../../../addons/ofxTotalControl/libs/p9813/include/p9813.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */,
 				E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */,
 				E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */,
+				1BD395EF16BA70800092DBD6 /* libp9813.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,9 +125,91 @@
 		0a72fba582feb0a24013ab8b8cbce74a /* p9813 */ = {
 			isa = PBXGroup;
 			children = (
+				1BD395E416BA70800092DBD6 /* lib */,
 				71c10348a3445ea3798dddfe038083b5 /* include */,
 			);
 			name = p9813;
+			sourceTree = "<group>";
+		};
+		1BD395E416BA70800092DBD6 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1BD395E516BA70800092DBD6 /* android */,
+				1BD395E816BA70800092DBD6 /* ios */,
+				1BD395E916BA70800092DBD6 /* linux */,
+				1BD395EA16BA70800092DBD6 /* linux64 */,
+				1BD395EB16BA70800092DBD6 /* osx */,
+				1BD395ED16BA70800092DBD6 /* vs2010 */,
+				1BD395EE16BA70800092DBD6 /* win_cb */,
+			);
+			name = lib;
+			path = ../libs/p9813/lib;
+			sourceTree = "<group>";
+		};
+		1BD395E516BA70800092DBD6 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				1BD395E616BA70800092DBD6 /* armeabi */,
+				1BD395E716BA70800092DBD6 /* armeabi-v7a */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		1BD395E616BA70800092DBD6 /* armeabi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = armeabi;
+			sourceTree = "<group>";
+		};
+		1BD395E716BA70800092DBD6 /* armeabi-v7a */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "armeabi-v7a";
+			sourceTree = "<group>";
+		};
+		1BD395E816BA70800092DBD6 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		1BD395E916BA70800092DBD6 /* linux */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = linux;
+			sourceTree = "<group>";
+		};
+		1BD395EA16BA70800092DBD6 /* linux64 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = linux64;
+			sourceTree = "<group>";
+		};
+		1BD395EB16BA70800092DBD6 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				1BD395EC16BA70800092DBD6 /* libp9813.a */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		1BD395ED16BA70800092DBD6 /* vs2010 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = vs2010;
+			sourceTree = "<group>";
+		};
+		1BD395EE16BA70800092DBD6 /* win_cb */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = win_cb;
 			sourceTree = "<group>";
 		};
 		4adb3dc5a640ee654ab0ac4d3e06cecb /* src */ = {
@@ -382,6 +467,7 @@
 					../../../addons/ofxTotalControl/libs/p9813/src,
 					../../../addons/ofxTotalControl/src,
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -390,8 +476,9 @@
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxTotalControl/libs/p9813/lib/osx/libp9813.a,
+					"-lftd2xx",
 				);
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -428,6 +515,7 @@
 					../../../addons/ofxTotalControl/libs/p9813/src,
 					../../../addons/ofxTotalControl/src,
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -436,8 +524,9 @@
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxTotalControl/libs/p9813/lib/osx/libp9813.a,
+					"-lftd2xx",
 				);
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -521,7 +610,15 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/p9813/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/ftd2xx/build/arm926\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../libs/ftd2xx/build/i386\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../libs/ftd2xx/build/x86_64\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
@@ -607,7 +704,15 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_49)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../libs/p9813/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../libs/ftd2xx/build/arm926\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../libs/ftd2xx/build/i386\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../libs/ftd2xx/build/x86_64\"";
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
