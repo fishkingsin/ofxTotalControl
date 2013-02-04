@@ -2,7 +2,11 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	#ifdef TARGET_LINUX_ARM
 	tcl.setup(256,"/dev/spidev0.0");
+#else
+	tcl.setup(5,50);
+#endif
 	pixel.allocate(256, 1, OF_IMAGE_COLOR);
 	
 }
