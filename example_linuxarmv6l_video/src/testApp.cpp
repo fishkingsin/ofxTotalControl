@@ -1,46 +1,87 @@
 #include "testApp.h"
-int frame = 0;
+const static int row = 16;
+const static int col = 16;
+const static int numLED = col*row;
+int SQAURE_ROOT =int(sqrt((float)col));
+float ptSize = 5;
+int counter = 0;
+
 //--------------------------------------------------------------
 void testApp::setup(){
+	player.loadMovie("Bad_Apple.mov");
+	player.play();
+	player.setPaused(false);
+	player.setLoopState(OF_LOOP_NORMAL);
+	ofSetWindowShape(player.getWidth(), player.getHeight());
+
+	ofSetFrameRate(25);
+	ofSetLogLevel(OF_LOG_VERBOSE);
+
 #ifdef TARGET_LINUX_ARM
-	tcl.setup(256,"/dev/spidev0.0");
+	tcl.setup(numLED,"/dev/spidev0.0");
 #else
 	tcl.setup(5,50);
 #endif
-	pixel.allocate(256, 1, OF_IMAGE_COLOR);
-	
+	pixel.allocate(numLED, 1, OF_IMAGE_COLOR);
+	startThread();
 }
 void testApp::exit()
 {
+	
+	stopThread();
 	tcl.exit();
+	ofLogVerbose("tcl")<< "close and clear led";
+	
+
+	
+}
+//--------------------------------------------------------------
+void testApp::threadedFunction()
+{
+	while( isThreadRunning() != 0 ){
+		if( lock() ){
+			if(!lockPixel)
+			{
+
+				{
+					tcl.update(pixel);
+					usleep(1000);
+				}
+			}
+			unlock();
+		}
+	}
 }
 //--------------------------------------------------------------
 void testApp::update(){
-	frame++;
-	frame %= tcl.numLEDs();
-	for(int i = 0 ; i < tcl.numLEDs(); i++)
+	player.update();
+	lockPixel = true;
+	int sizeX = player.getWidth()/col;
+	int sizeY = player.getHeight()/row;
+	
+	for(int x = 0 ; x < col ; x++)
 	{
-		int index = i*3;
-		if(frame == i)
+		for(int y = 0 ; y < row ; y++)
 		{
-			pixel[index] = 255;
-			pixel[index+1] = 255;
-			pixel[index+2] = 255;
-		}
-		else
-		{
-			pixel[index] = 0;
-			pixel[index+1] = 0;
-			pixel[index+2] = 0;
+			int i = (x+(y*col))*3;
 			
+			int i2 = ((x*sizeX)+((y*sizeY)*col*sizeX))*3;
+			unsigned char *pixels = player.getPixels();
+			pixel[i+1] = pixels[i2];
+			pixel[i] = pixels[i2+1];
+			pixel[i+2] = pixels[i2+2];
 		}
-	}
-	tcl.update(pixel);
+		
+
+	lockPixel = false;
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+	player.draw(player.getWidth(), 0);
+#ifndef TARGET_LINUX_ARM
 	
+#endif
 }
 
 //--------------------------------------------------------------

@@ -23,7 +23,7 @@
 
 #endif
 
-#define RAINBOW_TEST
+//#define RAINBOW_TEST
 
 class ofxTotalControl
 {
@@ -31,7 +31,7 @@ public:
 	ofxTotalControl()
 	{
 #ifdef TARGET_LINUX_ARM
-		#ifdef RAINBOW_TEST
+#ifdef RAINBOW_TEST
 		i = 0 ;
 		h=  0;
 		r = 0;
@@ -82,7 +82,7 @@ public:
 		set_gamma(2.2,2.2,2.2);
 		
 		/* Blank the pixels */
-		for(i=0;i<leds;i++) {
+		for(int i=0;i<leds;i++) {
 			write_gamma_color(&buf.pixels[i],0x00,0x00,0x00);
 		}
 		
@@ -111,6 +111,17 @@ public:
 		TCinitStats(&stats);
 #endif
 	}
+	void setPixel(int index ,ofColor color)
+	{
+		if(index<leds)
+		{
+			write_gamma_color(&buf.pixels[index], color.r, color.g, color.b);
+		}
+		else
+		{
+			ofLogWarning("ofxTotalControl")<< index <<" out of bounds " << leds;
+		}
+	}
 	void update(ofPixels pix)
 	{
 #ifdef TARGET_LINUX_ARM
@@ -121,16 +132,17 @@ public:
 		HSVtoRGB(h,1.0,1.0,&r,&g,&b);
 		write_gamma_color(buf.pixels,(int)(r*255.0),(int)(g*255.0),(int)floor(b*255.0));
 #else
-		for(int i 0 ;i < leds ; i++)
+		for(int i = 0 ;i < leds ; i++)
 		{
 			int index = i*3;
-			write_gamma_color(buf.pixels,pix[index],pix[index+1],pix[index+2]);
+			write_gamma_color(&buf.pixels[i],pix[index],pix[index+1],pix[index+2]);
+//			write_gamma_color(buf.pixels,pix[index],pix[index+1],pix[index+2]);
 		}
 #endif
 		send_buffer(fd,&buf);
 #else
 		
-		for(i=0;i<totalPixels;i++)
+		for(int i=0;i<totalPixels;i++)
 		{
 			ofColor c = pix.getColor(i, 0);
 			int r   = (int)((c.r *0.5) * 127.5);
@@ -159,7 +171,7 @@ public:
 	void exit()
 	{
 #ifdef TARGET_LINUX_ARM
-		for(i=0;i<leds;i++) {
+		for(int i=0;i<leds;i++) {
 			write_gamma_color(&buf.pixels[i],0x00,0x00,0x00);
 		}
 		
@@ -226,15 +238,21 @@ public:
 		}
 	}
 #endif
+	int numLEDs()
+	{
+		return leds;
+	}
+
 protected:
 #ifdef TARGET_LINUX_ARM
 	tcl_buffer buf;
 	int fd;
 	int return_value;
 	tcl_color *p;
+	
 #ifdef RAINBOW_TEST
 	int i;
-
+	
 	double h, r, g, b;
 #endif
 	string device;
