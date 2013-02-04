@@ -12,3 +12,9 @@
 *.la
 *.a
 *.app
+*.d
+*.o
+
+
+# media file
+*.mov
