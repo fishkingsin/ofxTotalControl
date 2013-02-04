@@ -2,18 +2,18 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	tcl.open(5,50);
-	pixel.allocate(5*50, 1, OF_IMAGE_COLOR);
+	tcl.setup(256,"/dev/spidev0.0");
+	pixel.allocate(256, 1, OF_IMAGE_COLOR);
 	
 }
 void testApp::exit()
 {
-	tcl.close();
+	tcl.exit();
 }
 //--------------------------------------------------------------
 void testApp::update(){
 	
-	tcl.refresh(pixel);
+	tcl.update(pixel);
 }
 
 //--------------------------------------------------------------
