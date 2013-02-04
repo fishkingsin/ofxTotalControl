@@ -26,6 +26,7 @@ Installation
 Dependencies
 ------------
 ftd2xx
+Build Settings -> Other Linke Flags	-> add -lftd2xx
 
 Compatibility
 ------------
