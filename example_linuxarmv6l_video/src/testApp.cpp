@@ -12,7 +12,7 @@ void testApp::setup(){
 	player.play();
 	player.setPaused(false);
 	player.setLoopState(OF_LOOP_NORMAL);
-	ofSetWindowShape(player.getWidth(), player.getHeight());
+	ofSetWindowShape(player.getWidth()*2, player.getHeight());
 
 	ofSetFrameRate(25);
 	ofSetLogLevel(OF_LOG_VERBOSE);
@@ -80,7 +80,21 @@ void testApp::update(){
 void testApp::draw(){
 	player.draw(player.getWidth(), 0);
 #ifndef TARGET_LINUX_ARM
-	
+	int sizeX = player.getWidth()/col;
+	int sizeY = player.getHeight()/row;
+	for(int x = 0 ; x < col ; x++)
+	{
+		for(int y = 0 ; y < row ; y++)
+		{
+			ofPushStyle();
+			int i = (x+(y*col))*3;
+			
+			
+			ofSetColor(pixel [i+1], pixel [i], pixel [i+2]);
+			ofRect((x)*sizeX,(y)*sizeY,sizeX,sizeY);
+			ofPopStyle();
+		}
+	}
 #endif
 }
 
