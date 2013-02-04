@@ -72,7 +72,7 @@ void testApp::update(){
 			pixel[i+2] = pixels[i2+2];
 		}
 		
-
+	}
 	lockPixel = false;
 }
 

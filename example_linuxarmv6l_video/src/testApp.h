@@ -23,6 +23,7 @@ public:
 	void threadedFunction();
 	
 	bool lockPixel;
+	ofxTotalControl tcl;
 	ofVideoPlayer player;
 	ofPixels pixel;
 };
