@@ -113,6 +113,7 @@ public:
 	}
 	void setPixel(int index ,ofColor color)
 	{
+#ifdef TARGET_LINUX_ARM
 		if(index<leds)
 		{
 			write_gamma_color(&buf.pixels[index], color.r, color.g, color.b);
@@ -121,6 +122,34 @@ public:
 		{
 			ofLogWarning("ofxTotalControl")<< index <<" out of bounds " << leds;
 		}
+#else
+		if(index<totalPixels)
+		{
+			
+			
+			int r   = (int)((color.r *0.5) * 127.5);
+			int g   = (int)((color.g *0.5) * 127.5);
+			int b   = (int)((color.b *0.5) * 127.5);
+			pixelBuf[i] = TCrgb(r,g,b);
+			
+			
+			
+			if((i = TCrefresh(pixelBuf,NULL,&stats)) != TC_OK)
+				//			TCprintError(i);
+				
+			/* Update statistics once per second. */
+				if((t = time(NULL)) != prev)
+				{
+#ifdef CYGWIN
+					printf("\E[2J");
+#else
+					system("clear");
+#endif
+					TCprintStats(&stats);
+					prev = t;
+				}
+		}
+#endif
 	}
 	void update(ofPixels pix)
 	{
@@ -136,7 +165,7 @@ public:
 		{
 			int index = i*3;
 			write_gamma_color(&buf.pixels[i],pix[index],pix[index+1],pix[index+2]);
-//			write_gamma_color(buf.pixels,pix[index],pix[index+1],pix[index+2]);
+			//			write_gamma_color(buf.pixels,pix[index],pix[index+1],pix[index+2]);
 		}
 #endif
 		send_buffer(fd,&buf);
@@ -240,9 +269,13 @@ public:
 #endif
 	int numLEDs()
 	{
+#ifdef TARGET_LINUX_ARM
 		return leds;
+#else
+		return totalPixels;
+#endif
 	}
-
+	
 protected:
 #ifdef TARGET_LINUX_ARM
 	tcl_buffer buf;
