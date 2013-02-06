@@ -103,7 +103,8 @@ public:
 		 are non-fatal; program displays a warning but continues. */
 		if((i = TCopen(nStrands,pixelsPerStrand)) != TC_OK)
 		{
-			//			TCprintError(i);
+			ofLogError("ofxTotalControl") << "could not open device";
+			std::exit(-1);
 			if(i < TC_ERR_DIVISOR) return 1;
 		}
 		
@@ -135,7 +136,11 @@ public:
 			
 			
 			if((i = TCrefresh(pixelBuf,NULL,&stats)) != TC_OK)
-				//			TCprintError(i);
+//				TCprintError(i);
+			{
+				ofLogError("ofxTotalControl") << "could not refresh";
+				std::exit(-1);
+			}
 				
 			/* Update statistics once per second. */
 				if((t = time(NULL)) != prev)
@@ -182,6 +187,10 @@ public:
 		}
 		
 		if((i = TCrefresh(pixelBuf,NULL,&stats)) != TC_OK)
+		{
+			ofLogError("ofxTotalControl") << "could not refresh";
+			std::exit(-1);
+		}
 			//			TCprintError(i);
 			
 		/* Update statistics once per second. */
