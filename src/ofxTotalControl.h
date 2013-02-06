@@ -48,10 +48,10 @@ public:
 	}
 #ifdef TARGET_LINUX_ARM
 	
-	int setup(int _numLEDs , string _device = "/dev/spidev0.0")
+	void setup(int _numLEDs , string _device = "/dev/spidev0.0")
 	
 #else
-	int setup(int _nStrands, int _pixelsPerStrand)
+	void setup(int _nStrands, int _pixelsPerStrand)
 	
 #endif
 	{

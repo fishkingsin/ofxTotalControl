@@ -2,17 +2,23 @@
 int frame = 0;
 const static int col = 16;
 const static int row = 16;
-static int mode = 0;
+static int NUM_LED = col*row;
+//static int mode = 0;
 const static int totalMode = 2;
 //--------------------------------------------------------------
 void testApp::setup(){
 #ifdef TARGET_LINUX_ARM
-	tcl.setup(256,"/dev/spidev0.0");
+	tcl.setup(NUM_LED,"/dev/spidev0.0");
 #else
 	tcl.setup(5,50);
 #endif
-	pixel.allocate(256, 1, OF_IMAGE_COLOR);
+	pixel.allocate(col, row, OF_IMAGE_COLOR);
 	ofSetFrameRate(60);
+	
+	//create the socket and bind to port 11999
+	udpConnection.Create();
+	udpConnection.Bind(5005);
+	udpConnection.SetNonBlocking(true);
 }
 void testApp::exit()
 {
@@ -20,82 +26,77 @@ void testApp::exit()
 }
 //--------------------------------------------------------------
 void testApp::update(){
-	frame++;
-	frame %= tcl.numLEDs();
-	if(frame%400==0)
-	{
-		mode++;
-		mode%=totalMode;
-	}
+	int MAX_LEN = NUM_LED*3;
+	char udpMessage[MAX_LEN];
 	
-	if(mode==0)
+	if(udpConnection.Receive(udpMessage,MAX_LEN)>0)
 	{
-		int i = 0 ;
+		
+
+//		for(int y = 0 ; y < row ; y++)
+//		{
+//			for(int x = 0 ; x < col ; x++)
+//			{
+//				int i = (x+(y*col))*3;
+//				int i2 = (x+(y*col))*3;
+//				//handle zigzag
+////				if(y%2==1)
+////				{
+////					i2 = (((col-1)-x)+(y*col))*3;
+////				}
+//				//
+//				pixel[i2] = udpMessage[i];
+//				pixel[i2+1] = udpMessage[i+1];
+//				pixel[i2+2] = udpMessage[i+2];
+//				
+//			}
+//
+//		}
+		memcpy(pixel.getPixels(),udpMessage,MAX_LEN);
 		for(int y = 0 ; y < row ; y++)
 		{
-			for(int x = 0 ; x < col ; x++)
+			if(y%2==1)
 			{
-				int index =  (x+(y*col))*3;
-				ofColor c = ofColor::white;
-#define ZIGZAG
-#ifdef ZIGZAG
-				if(y%2==1)
-					
+				int i=0, j=col-1;
+				while(i<j)
 				{
-					index = (((col-1)-x)+(y*col))*3;
+
+					unsigned char r = pixel[i*3+(y*col)*3];
+					unsigned char g = pixel[i*3+1+(y*col)*3];
+					unsigned char b = pixel[i*3+2+(y*col)*3];
+					pixel[i*3+(y*col)*3] = pixel[j*3+(y*col)*3];
+					pixel[i*3+1+(y*col)*3] = pixel[j*3+1+(y*col)*3];
+					pixel[i*3+2+(y*col)*3] = pixel[j*3+2+(y*col)*3];
+
+					pixel[j*3+(y*col)*3] = r;
+					pixel[j*3+1+(y*col)*3] = g;
+					pixel[j*3+2+(y*col)*3] = b;
+					i++;
+					j--;
 				}
-#endif
-				if(frame == i)
-				{
-					
-					pixel[index] = c.r;
-					pixel[index+1] = c.g;
-					pixel[index+2] = c.b;
-				}
-				else
-				{
-					pixel[index] = 0;
-					pixel[index+1] = 0;
-					pixel[index+2] = 0;
-					
-				}
-				i++;
 			}
 		}
-	}
-	else if (mode ==1)
-	{
-		for(int i = 0 ; i < tcl.numLEDs(); i++)
-		{
-			int index = i*3;
-			ofColor c = ofColor::fromHsb((i+frame)%255,255,255);
-			pixel[index] = c.r;
-			pixel[index+1] = c.g;
-			pixel[index+2] = c.b;
-		}
-	}
-	
-	
-	tcl.update(pixel);
-}
 
+		tcl.update(pixel);
+	}
+}
 //--------------------------------------------------------------
 void testApp::draw(){
-	int sizeX = 20;
-	int sizeY = 20;
-	for(int x = 0 ; x < col ; x++)
-	{
-		for(int y = 0 ; y < row ; y++)
-		{
-			ofPushStyle();
-			int i = (x+(y*col))*3;
-			
-			
-			ofSetColor(pixel [i], pixel [i+1], pixel [i+2]);
-			ofRect((x)*sizeX,(y)*sizeY,sizeX,sizeY);
-			ofPopStyle();
-		}
-	}
+//	int sizeX = 20;
+//	int sizeY = 20;
+//	for(int x = 0 ; x < col ; x++)
+//	{
+//		for(int y = 0 ; y < row ; y++)
+//		{
+//			ofPushStyle();
+//			int i = (x+(y*col))*3;
+//			
+//			
+//			ofSetColor(pixel [i], pixel [i+1], pixel [i+2]);
+//			ofRect((x)*sizeX,(y)*sizeY,sizeX,sizeY);
+//			ofPopStyle();
+//		}
+//	}
 }
 
 //--------------------------------------------------------------
