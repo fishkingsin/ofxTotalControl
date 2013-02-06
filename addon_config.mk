@@ -56,8 +56,6 @@ win_cb:
 	#nothing yet
 linuxarmv6l:
 	ADDON_LIBS = 
-	ADDON_CFLAGS = libs/elinux-tcl/src/
-	ADDON_CFLAGS += src/
 	ADDON_INCLUDES = libs/elinux-tcl/include/
 	ADDON_INCLUDES += src/
 	
