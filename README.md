@@ -5,8 +5,10 @@ ofxTotalControl
 
 Introduction
 ------------
+Control P9813 LED Pixels
 
-https://github.com/PaintYourDragon/p9813 warpper
+https://github.com/PaintYourDragon/p9813 warpper (i386 archetecture)
+https://bitbucket.org/devries/elinux-tcl warpper (arm elinux)
 
 Licence
 -------
@@ -22,14 +24,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Installation
 ------------
+Build Settings -> Other Linke Flags	-> add -lftd2xx
 
 Dependencies
 ------------
-ftd2xx
-Build Settings -> Other Linke Flags	-> add -lftd2xx
+i386:
+http://www.ftdichip.com/Drivers/D2XX.htm
+follow the instruction to install ftd2xx
+
+arm:
+spi
 
 Compatibility
 ------------
+p9813 i386,x86_64 only
+elinux-tcl arm only
 
 Known issues
 ------------
