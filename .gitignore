@@ -18,3 +18,5 @@
 
 # media file
 *.mov
+
+.DS_Store
