@@ -47,3 +47,7 @@ Version history
 
 ### Version 0.1 (2013-01-30):
 add osx library
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/fishkingsin/ofxtotalcontrol/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
